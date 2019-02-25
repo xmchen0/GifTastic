@@ -56,7 +56,7 @@ $(document).ready(function () {
             for (var i = 0; i < results.length; i++) {
                 var newDiv = $('<div>');
                 // Display ratings
-                var newRating = $('<h2>').html('Rating: ' + results[i].rating);
+                var newRating = $('<h3>').html('Rating: ' + results[i].rating);
                 // Display states of images
                 var newImg = $('<img>');
                 newImg.attr('src', results[i].images.fixed_height_still.url);

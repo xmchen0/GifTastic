@@ -4,7 +4,7 @@ body {
 }
 
 .jumbotron-custom {
-    background-image: url("./assets/images/color-2174065_960_720.png");
+    background-image: url("../banner.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

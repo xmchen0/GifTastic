@@ -73,7 +73,7 @@ $(document).ready(function () {
             }
 
             // Function for when animating gif and stop moving gif
-            $('#gifContainer').on('click', function () {
+            $('.gif').on('click', function () {
                 event.preventDefault();
                 var state = $(this).attr('data-state');
                 // Make gif either animated or still depending on 'data-state' value

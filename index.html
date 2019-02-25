@@ -26,14 +26,20 @@
                 <h1>Emotion GIFs: <br><small>How Are You Feeling?</small></h1>
             </div>
             <!--Existing Emotion Buttons Array-->
-            <div id="emotionsGroup"></div>
+            <div class="col-md-9">
+                <div id="emotionsGroup"></div>
+            </div>
             <!--User Form and Submit Button-->
-            <form>
-                <input id="newEmotionsInput" type="text" placeholder="Add an emotion">
-                <button id="addEmotionsBtn" type="submit">Submit</button>
-            </form>
+            <div class="col-md-3">
+                <form>
+                    <input id="newEmotionsInput" type="text" placeholder="Add an emotion">
+                    <button id="addEmotionsBtn" type="submit">Submit</button>
+                </form>
+            </div>
             <!--Populate New GIFs-->
-            <div id="gifContainer"></div>
+            <div class="col-md-12">
+                <div id="gifContainer"></div>
+            </div>
         </div>
     </div>
     <!--Footer-->

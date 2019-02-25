@@ -2,50 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>The Magical Cat Button</title>
+    <meta charset="utf-8">
+    <title>GifTastic :: A Javascript GIPHY API demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Link to CSS-->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--Link to jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Link to JavaScript File-->
+    <script src="assets/javascript/app.js" type="text/javascript"></script>
 </head>
 
 <body>
-  <button id="cat-button">magical cat button</button>
-  <div id="images">
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // click button to perform a function
-    $("#cat-button").on("click", function() {
+    <button id="cat-button">magical cat button</button>
+    <div id="images"></div>
 
-      // access giphy API to search for random cat gifs
-      var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
 
-      // tell jQuery to evoke AJAX method to call URL and get data
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      })
-
-      // then execute event handling function
-      // that receives the response as a variable
-        .then(function(response) {
-
-          // declare local variable imageURL
-          // find the image_original_url property inside
-          // the data object which is a property
-          // of the response object and assign the value
-          var imageUrl = response.data.image_original_url;
-
-          // get img element to store as object or tell jquery to create an image tag
-          var catImage = $("<img>");
-
-          // set the new image src and alt attributes
-          catImage.attr("src", imageUrl);
-          catImage.attr("alt", "cat image");
-
-          // add image to beginning to images div tag
-          $("#images").prepend(catImage);
-        });
-    });
-  </script>
 </body>
 
 </html>

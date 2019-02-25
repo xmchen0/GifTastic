@@ -1,33 +1,120 @@
-// click button to perform a function
-$("#cat-button").on("click", function () {
+/* 
 
-    // access giphy API to search for random cat gifs
-    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
+UofT Coding Bootcamp 2019 -- GifTastic
 
-    // tell jQuery to evoke AJAX method to call URL and get data
-    $.ajax({
-        url: queryURL,
-        method: "GET"
+Template credits to UofT week 06 / activity 09-ClickJSON
+
+*/
+
+$(document).ready(function () {
+
+    /// GLOBAL VARIABLES
+    // ================================================================================================================================
+
+    // Initial array of topics: emotions
+    var topics = [
+        'awkward',
+        'bored',
+        'confused',
+        'drunk',
+        'excited',
+        'frustrated',
+        'hungry',
+        'mindblown',
+        'tired',
+        'scared',
+        'happy',
+        'sick',
+        'love',
+        'lonely',
+        'surprised',
+        'hangry',
+        'relaxed',
+        'easy',
+        'sleepy'
+    ];
+
+
+    /// FUNCTIONS
+    // ================================================================================================================================
+
+    // Function for displaying emotions data
+    function renderButtons() {
+        // Delete buttons prior to adding new emotions
+        $('#emotionsGroup').empty();
+        // Looping through the array of emotions
+        for (var i = 0; i < topics.length; i++) {
+            // Then dynamicaly generating buttons for each emotion in the array
+            var button = $('<button>');
+            // Adding a class of emotion to our button
+            button.addClass('emotionsButton');
+            // Adding a data-attribute
+            button.attr('data-emotions', topics[i]);
+            // Providing the initial button text
+            button.text(topics[i]);
+            // Adding the button to the emotionsGroup div
+            $('#emotionsGroup').append(button);
+        }
+        renderButtons();
+    }
+
+    // Function for dumping JSON content for each button into the div
+    $(document).on('click', '#emotionsGroup', function () {
+        var emotions = $(this).attr('data-emotions');
+        // Setup URL query for search property, api key, limit and rating
+        var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + emotions + '&api_key=0vIJrQX25UF47Iid2cpDSvrasvuknBJi&limit=10&rating=pg-13';
+        // Make the AJAX call to GIPHY API
+        $.ajax({ url: queryURL, method: 'GET' }).done(function (response) {
+            // Grabs data
+            var results = response.data;
+            // Empty the div before adding new gifs
+            $('#gifContainer').empty();
+            // Loop through results data
+            for (var i = 0; i < results.length; i++) {
+                var newDiv = $('<div>');
+                // Append new rating
+                var newRating = $('<h2>').html('Rating: ' + results[i].rating);
+                newDiv.append(newRating);
+                // Append new image
+                var newImg = $('<img>');
+                newImg.attr('src', results[i].images.fixed_height_still.url);
+                newImg.attr('data-still', results[i].images.fixed_height_still.url);
+                newImg.attr('data-animate', results[i].images.fixed_height.url);
+                newImg.attr('data-state', 'still');
+                newDiv.append(newImg);
+                // Append new gifs to the gifContainer
+                $('#gifContainer').append(newDiv);
+                newDiv.on('click', changeState)
+            }
+        });
+
+        // Function for animating gif and stop moving gif
+        function changeState() {
+            var state = $(this).attr('data-state');
+            // Make gif either animated or still depending on the 'data-state' value
+            if (state === 'still') {
+                $(this).attr('src', $(this).attr('data-animate'));
+                $(this).attr('data-state', 'animate');
+            } else {
+                $(this).attr('src', $(this).attr('data-still'));
+                $(this).attr('data-state', 'still');
+            }
+        }
     })
 
-        // then execute event handling function
-        // that receives the response as a variable
-        .then(function (response) {
-
-            // declare local variable imageURL
-            // find the image_original_url property inside
-            // the data object which is a property
-            // of the response object and assign the value
-            var imageUrl = response.data.image_original_url;
-
-            // get img element to store as object or tell jquery to create an image tag
-            var catImage = $("<img>");
-
-            // set the new image src and alt attributes
-            catImage.attr("src", imageUrl);
-            catImage.attr("alt", "cat image");
-
-            // add image to beginning to images div tag
-            $("#images").prepend(catImage);
-        });
+    // Function for when handles events button is clicked
+    $('#addEmotionsBtn').on('click', function (event) {
+        event.preventDefault();
+        // Alert textbox cannot be blank
+        if ($('#newEmotionsInput').val().trim().toLowerCase() == '') {
+            window.alert('Textbox cannot be left blank');
+        } else {
+            // Grabs input from textbox
+            var emotions = $('#newEmotionsInput').val().trim().toLowerCase();
+            // Add item to topics array
+            topics.push(emotions);
+            // Call renderButtons to handle processing of topics array
+            renderButtons();
+        }
+    });
 });

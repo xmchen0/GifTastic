@@ -1,12 +1,20 @@
 body {
     font-family: 'Coiny', cursive;
+    font-size: 16px;
+}
+
+.jumbotron-custom {
+    background-image: url("https://cdn.pixabay.com/photo/2017/03/25/18/06/color-2174065_960_720.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #17234E;
 }
 
 footer {
     bottom: 0;
     width: 100%;
     position: absolute;
-    height: $height-footer;
     background-color: #f5f5f5;
 }
 

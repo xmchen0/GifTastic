@@ -10,7 +10,7 @@
 * Submit button will load 10 GIFs images in newDiv and respective ratings (G)
 * Users may change the state of the GIFs from data-still to data-animate and so on
 
-Preview and Play game here: https://xmkchen.github.io/TriviaGame/
+Preview and Play game here: https://xmkchen.github.io/GifTastic/
 
 ## Homework Instructions
 Before you can make any part of our site work, you need to create an array of strings, each one related to a topic that interests you. Save it to a variable called topics.

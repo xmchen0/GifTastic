@@ -4,40 +4,50 @@ UofT Coding Bootcamp 2019 -- GifTastic
 
 Template credits to UofT week 06 / activity 09-ClickJSON
 
+15-Mar-19 Update after receiving feedback from Dimitry
+
+"Keep in mind you can initialize and declare variables before document.ready. 
+You only need to wait for the document to load for code 
+that will be manipulating the dom.
+A few small specific things: 
+- You could extract the code for toggling gif state ( lines 80 - 86 ) 
+into its own function (maybe called 'toggleGifState'). 
+- Also the variable on line 118 can be moved above line 114 
+and then used in the if condition on line 114 to remove duplication."
+
 */
 
+/// GLOBAL VARIABLES
+// ================================================================================================================================
+
+// Initial array of topics: emotions
+var topics = [
+    'awkward',
+    'bored',
+    'confused',
+    'drunk',
+    'excited',
+    'frustrated',
+    'hungry',
+    'mindblown',
+    'tired',
+    'scared',
+    'happy',
+    'sick',
+    'love',
+    'lonely',
+    'surprised',
+    'hangry',
+    'relaxed',
+    'easy',
+    'sleepy'
+];
+
+
+/// FUNCTIONS
+// ================================================================================================================================
 
 $(document).ready(function () {
-
-    /// GLOBAL VARIABLES
-    // ================================================================================================================================
-
-    // Initial array of topics: emotions
-    var topics = [
-        'awkward',
-        'bored',
-        'confused',
-        'drunk',
-        'excited',
-        'frustrated',
-        'hungry',
-        'mindblown',
-        'tired',
-        'scared',
-        'happy',
-        'sick',
-        'love',
-        'lonely',
-        'surprised',
-        'hangry',
-        'relaxed',
-        'easy',
-        'sleepy'
-    ];
-
-
-    /// FUNCTIONS
-    // ================================================================================================================================
 
     // Function for dumping JSON content for each button into div
     function displayGifs() {
@@ -76,16 +86,20 @@ $(document).ready(function () {
             $('.gif').on('click', function () {
                 event.preventDefault();
                 var state = $(this).attr('data-state');
-                // Make gif either animated or still depending on 'data-state' value
-                if (state === 'still') {
-                    $(this).attr('src', $(this).attr('data-animate'));
-                    $(this).attr('data-state', 'animate');
-                } else {
-                    $(this).attr('src', $(this).attr('data-still'));
-                    $(this).attr('data-state', 'still');
-                }
+
             });
         });
+
+        // Make gif either animated or still depending on 'data-state' value
+        function toggleGifstate() {
+            if (state === 'still') {
+                $(this).attr('src', $(this).attr('data-animate'));
+                $(this).attr('data-state', 'animate');
+            } else {
+                $(this).attr('src', $(this).attr('data-still'));
+                $(this).attr('data-state', 'still');
+            }
+        }
     }
 
     // Function for displaying emotions data
@@ -110,12 +124,12 @@ $(document).ready(function () {
     // Function for when events button is clicked
     $("#addEmotionsBtn").on("click", function (event) {
         event.preventDefault();
+        // Grabs input from textbox
+        var emotions = $('#newEmotionsInput').val().trim().toLowerCase();
         // Alert textbox cannot be blank
-        if ($('#newEmotionsInput').val().trim().toLowerCase() == '') {
+        if (emotions == '') {
             window.alert('Ops! Textbox cannot be left blank.');
         } else {
-            // Grabs input from textbox
-            var emotions = $('#newEmotionsInput').val().trim().toLowerCase();
             // Add item to topics array
             topics.push(emotions);
             // Call renderButtons to handle processing of topics array
